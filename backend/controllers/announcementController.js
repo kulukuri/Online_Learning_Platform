@@ -1,5 +1,6 @@
 const Announcement = require("../models/Announcement");
 
+// Get all announcements (public)
 exports.getAnnouncements = async (req, res) => {
   try {
     const announcements = await Announcement.find().sort({ date: -1 });
@@ -9,6 +10,7 @@ exports.getAnnouncements = async (req, res) => {
   }
 };
 
+// Create announcement (admin only)
 exports.createAnnouncement = async (req, res) => {
   if (req.user.role !== "admin") return res.status(403).json({ msg: "Forbidden" });
   try {
@@ -20,10 +22,12 @@ exports.createAnnouncement = async (req, res) => {
   }
 };
 
+// Delete announcement (admin only)
 exports.deleteAnnouncement = async (req, res) => {
   if (req.user.role !== "admin") return res.status(403).json({ msg: "Forbidden" });
   try {
-    await Announcement.findByIdAndDelete(req.params.id);
+    const deleted = await Announcement.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ msg: "Announcement not found" });
     res.json({ msg: "Announcement deleted" });
   } catch (err) {
     res.status(500).json({ msg: "Server error" });

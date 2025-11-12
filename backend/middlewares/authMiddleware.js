@@ -6,12 +6,12 @@ module.exports = function(req, res, next) {
 
   // If Bearer token style, remove "Bearer "
   if (token.startsWith("Bearer ")) {
-    token = token.slice(7, token.length);
+    token = token.slice(7).trim();
   }
 
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified;
+    req.user = { id: verified.id || verified._id }; // ensure you use correct id field
     next();
   } catch (err) {
     res.status(401).json({ msg: "Invalid token" });

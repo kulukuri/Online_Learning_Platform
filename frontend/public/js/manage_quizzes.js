@@ -4,10 +4,10 @@ document.getElementById('logoutBtn').onclick = () => {
 };
 
 const token = localStorage.getItem('token');
+let tempQuestions = [];
 
-document.getElementById('quizForm').onsubmit = async (e) => {
+document.getElementById('addQuestionBtn').onclick = (e) => {
   e.preventDefault();
-  const courseId = document.getElementById('courseId').value.trim();
   const questionText = document.getElementById('question').value.trim();
   const options = [
     document.getElementById('option1').value.trim(),
@@ -16,7 +16,22 @@ document.getElementById('quizForm').onsubmit = async (e) => {
     document.getElementById('option4').value.trim()
   ];
   const answer = parseInt(document.getElementById('answer').value);
+  tempQuestions.push({ text: questionText, options, answer });
 
+  document.getElementById('questionsPreview').innerHTML = tempQuestions.map((q, i) =>
+    `<li>Q${i+1}: ${q.text} [${q.options.join(', ')}] Answer: Option ${q.answer + 1}</li>`
+  ).join('');
+
+  document.getElementById('quizForm').reset();
+};
+
+document.getElementById('saveQuizBtn').onclick = async (e) => {
+  e.preventDefault();
+  const courseId = document.getElementById('courseId').value.trim();
+  if (!courseId || tempQuestions.length === 0) {
+    document.getElementById('quizMsg').textContent = 'Course ID and at least 1 question required!';
+    return;
+  }
   const res = await fetch('http://localhost:5000/api/quizzes', {
     method: 'POST',
     headers: {
@@ -25,12 +40,17 @@ document.getElementById('quizForm').onsubmit = async (e) => {
     },
     body: JSON.stringify({
       course: courseId,
-      questions: [{ text: questionText, options, answer }]
+      questions: tempQuestions
     })
   });
   const data = await res.json();
   document.getElementById('quizMsg').textContent = res.ok ? 'Quiz Added!' : (data.msg || 'Error');
-  if(res.ok){ document.getElementById('quizForm').reset(); loadQuizzes(); }
+  if(res.ok){
+    tempQuestions = [];
+    document.getElementById('questionsPreview').innerHTML = '';
+    document.getElementById('quizForm').reset();
+    loadQuizzes();
+  }
 };
 
 async function loadQuizzes(){

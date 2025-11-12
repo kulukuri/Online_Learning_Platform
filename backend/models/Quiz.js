@@ -1,14 +1,12 @@
-const mongoose = require("mongoose");
-
-const quizSchema = new mongoose.Schema({
-  course: { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true },
+const mongoose = require('mongoose');
+const QuizSchema = new mongoose.Schema({
+  course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },
   questions: [
     {
       text: String,
       options: [String],
-      answer: Number // index of correct option
+      answer: Number
     }
-  ]
+  ],
 });
-
-module.exports = mongoose.model("Quiz", quizSchema);
+module.exports = mongoose.model('Quiz', QuizSchema);

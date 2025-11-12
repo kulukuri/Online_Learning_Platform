@@ -10,17 +10,14 @@ const token = localStorage.getItem('token');
 // Video embed helper: supports YouTube (regular/short), .mp4, fallback
 function getVideoEmbedHTML(videoUrl) {
   if (!videoUrl) return '';
-  // youtube.com/watch?v=xxxx
   if (videoUrl.includes('youtube.com/watch?v=')) {
-    const embedUrl = videoUrl.replace('watch?v=','embed/').split('&')[0];
+    const embedUrl = videoUrl.replace('watch?v=', 'embed/').split('&')[0];
     return `<iframe width="320" height="180" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
   }
-  // youtu.be/xxxx
   const youtuMatch = videoUrl.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-  if(youtuMatch) {
+  if (youtuMatch) {
     return `<iframe width="320" height="180" src="<https://www.youtube.com/embed/${youtuMatch>[1]}" frameborder="0" allowfullscreen></iframe>`;
   }
-  // .mp4
   if (videoUrl.endsWith('.mp4')) {
     return `<video width="320" height="180" controls src="${videoUrl}"></video>`;
   }
@@ -60,21 +57,25 @@ function displayCourses(courses) {
 }
 
 async function addCourse(courseId) {
-  const token = localStorage.getItem('token');
   if (!token) {
     alert('You must be logged in to enroll!');
     window.location.href = 'login.html';
     return;
   }
-  const res = await fetch(`http://localhost:5000/api/users/enroll/${courseId}`, {
-    method: 'POST',
-    headers: { 'Authorization': 'Bearer ' + token }
-  });
-  const data = await res.json();
-  if(res.ok)
-    alert(data.msg || 'Course added!');
-  else
-    alert(data.msg || 'Failed to add course: ' + (data.msg || res.status));
+  try {
+    const res = await fetch(`http://localhost:5000/api/users/enroll/${courseId}`, {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert(data.msg || 'Course added!');
+    } else {
+      alert(data.msg || `Failed to add course: ${res.status}`);
+    }
+  } catch (error) {
+    alert('Error adding course');
+  }
 }
 
 searchInput.addEventListener('input', () => {

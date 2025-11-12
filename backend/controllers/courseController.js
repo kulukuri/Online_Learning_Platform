@@ -1,5 +1,6 @@
 const Course = require("../models/Course");
 
+// Get all courses for students/admin with optional search
 exports.getCourses = async (req, res) => {
   const search = req.query.search || "";
   try {
@@ -12,6 +13,7 @@ exports.getCourses = async (req, res) => {
   }
 };
 
+// Create a new course (admin only)
 exports.createCourse = async (req, res) => {
   if (req.user.role !== "admin") return res.status(403).json({ msg: "Forbidden" });
   const { title, description, videoUrl, paragraphs } = req.body;
@@ -29,11 +31,24 @@ exports.createCourse = async (req, res) => {
   }
 };
 
+// Delete course by ID (admin only)
 exports.deleteCourse = async (req, res) => {
   if (req.user.role !== "admin") return res.status(403).json({ msg: "Forbidden" });
   try {
-    await Course.findByIdAndDelete(req.params.id);
+    const deleted = await Course.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ msg: "Course not found" });
     res.json({ msg: "Course deleted" });
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+// Get single course by ID (any authenticated user)
+exports.getCourseById = async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) return res.status(404).json({ msg: "Course not found" });
+    res.json(course);
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
   }

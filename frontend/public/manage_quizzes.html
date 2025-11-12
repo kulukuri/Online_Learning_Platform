@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Manage Quizzes - Admin</title>
-  <link rel="stylesheet" href="../css/main.css" />
-  <script src="../js/manage_quizzes.js" defer></script>
+  <link rel="stylesheet" href="/css/main.css" />
+  <script src="/js/manage_quizzes.js" defer></script>
 </head>
 <body>
 <header class="navbar">
@@ -18,8 +18,8 @@
 <main class="container fade-in">
   <h2>Add Quiz</h2>
   <form id="quizForm">
-    <input type="text" id="courseId" placeholder="Course ID" required />
-    <input type="text" id="question" placeholder="Quiz Question" required />
+    <input type="text" id="courseId" placeholder="Course ID" required /><br>
+    <input type="text" id="question" placeholder="Quiz Question" required /><br>
     <input type="text" id="option1" placeholder="Option 1" required />
     <input type="text" id="option2" placeholder="Option 2" required />
     <input type="text" id="option3" placeholder="Option 3" required />
@@ -30,9 +30,12 @@
       <option value="2">Option 3</option>
       <option value="3">Option 4</option>
     </select>
-    <button type="submit" class="button">Add Quiz</button>
+    <button type="button" id="addQuestionBtn" class="button" style="background:#cce3f7;">Add Question</button>
+    <button type="button" id="saveQuizBtn" class="button">Save Quiz</button>
   </form>
   <p id="quizMsg"></p>
+  <h4>Questions Preview</h4>
+  <ul id="questionsPreview"></ul>
   <hr>
   <h3>All Quizzes</h3>
   <ul id="quizzesList"></ul>

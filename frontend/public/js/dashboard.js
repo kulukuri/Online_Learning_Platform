@@ -12,12 +12,17 @@ async function loadDashboard() {
     const res = await fetch('http://localhost:5000/api/users/profile', {
       headers: { 'Authorization': 'Bearer ' + token }
     });
-    if (!res.ok) throw new Error('Failed to fetch profile');
+    const contentType = res.headers.get("content-type");
+    if (!res.ok || !contentType || !contentType.includes("application/json")) {
+      throw new Error('Failed to fetch profile (auth rejected or not JSON)');
+    }
     const user = await res.json();
     document.getElementById('userWelcome').innerHTML = `<h3>Hello, ${user.name} (${user.role})</h3>`;
     if (user.role === 'admin') {
       document.getElementById('adminPanel').style.display = '';
       document.getElementById('myCoursesSection').style.display = 'none';
+      document.getElementById('dashboardAnnouncements').style.display = 'none';
+      document.getElementById('dashboardQuizzes').style.display = 'none';
     } else {
       document.getElementById('adminPanel').style.display = 'none';
       document.getElementById('myCoursesSection').style.display = '';
@@ -38,10 +43,41 @@ async function loadDashboard() {
           }
         });
       }
+      await loadAnnouncements();
+      await loadQuizzes();
     }
   } catch (err) {
     alert(err.message);
     window.location.href = 'login.html';
   }
 }
+
+async function loadAnnouncements() {
+  const res = await fetch('http://localhost:5000/api/announcements');
+  const data = await res.json();
+  const announcementsList = document.getElementById('dashboardAnnouncements');
+  announcementsList.innerHTML = '';
+  if(Array.isArray(data) && data.length) {
+    data.forEach(a => {
+      announcementsList.innerHTML += `<li><strong>${a.title}</strong>: ${a.description}</li>`;
+    });
+  } else {
+    announcementsList.innerHTML = '<li>No announcements.</li>';
+  }
+}
+
+async function loadQuizzes() {
+  const res = await fetch('http://localhost:5000/api/quizzes');
+  const data = await res.json();
+  const quizzesList = document.getElementById('dashboardQuizzes');
+  quizzesList.innerHTML = '';
+  if(Array.isArray(data) && data.length) {
+    data.forEach(q => {
+      quizzesList.innerHTML += `<li><strong>Quiz</strong> for course: ${q.course}<br>${q.questions.map((ques, idx) => `Q${idx+1}: ${ques.text}`).join('<br>')}</li>`;
+    });
+  } else {
+    quizzesList.innerHTML = '<li>No quizzes.</li>';
+  }
+}
+
 window.onload = loadDashboard;
