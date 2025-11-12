@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LearnHub - Dashboard</title>
+<link rel="stylesheet" href="../css/main.css" />
+<script src="../js/dashboard.js" defer></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">LearnHub</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="profile.html">Profile</a>
+    <a href="login.html" id="logoutBtn">Logout</a>
+  </nav>
+</header>
+<main class="container fade-in">
+  <h2>Dashboard</h2>
+  <section id="userWelcome"></section>
+  <hr>
+  <section id="adminPanel" style="display:none;">
+    <h3>Admin Panel</h3>
+    <button onclick="window.location.href='manage_courses.html'" class="button">Manage Courses</button>
+    <button onclick="window.location.href='manage_announcements.html'" class="button">Manage Announcements</button>
+    <button onclick="window.location.href='manage_quizzes.html'" class="button">Manage Quizzes</button>
+  </section>
+  <section id="myCoursesSection">
+    <h3>My Courses</h3>
+    <ul id="myCoursesList"></ul>
+  </section>
+</main>
+</body>
+</html>

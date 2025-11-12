@@ -1,0 +1,106 @@
+:root {
+  --pastel-bg: #f5f7fa;
+  --pastel-primary: #a3cef1;
+  --pastel-secondary: #f7cac9;
+  --pastel-accent: #f6e2b3;
+  --text-color: #333;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(120deg, #e0ecef 0%, #f7fafc 100%);
+  color: var(--text-color);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(163, 206, 241, 0.13);
+  padding: 1.3rem 2.5rem;
+  border-radius: 0 0 16px 16px;
+}
+
+.logo { font-weight: 700; font-size: 2rem; color: #299bbf;}
+.navbar a {
+  text-decoration: none;
+  color: var(--text-color);
+  margin-left: 2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+.navbar a:hover { background: #e0f7fa; color: #299bbf; }
+
+.container {
+  max-width: 980px;
+  margin: 2.5rem auto 0 auto;
+  padding: 2rem 2rem;
+  background: #f5f7fa;
+  border-radius: 15px;
+  box-shadow: 0 8px 28px rgba(163, 206, 241, .17);
+}
+
+.cards { display: flex; justify-content: center; gap: 2rem; margin-top: 2.5rem; }
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 16px rgba(100,160,200,0.14);
+  padding: 2rem 1.5rem;
+  width: 30%;
+  margin-bottom: 2rem;
+  animation: fadeIn 1.3s;
+}
+
+.button {
+  background-color: var(--pastel-primary);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 2rem;
+  margin-top: 1.3rem;
+  cursor: pointer;
+  transition: background 0.27s;
+  box-shadow: 0 2px 12px rgba(100,160,200,0.09);
+}
+.button:hover {
+  background-color: #6acee5;
+  color: #2f80ed;
+}
+
+h1 { font-size: 2.6rem; font-weight: 900; margin: 2rem 0 1rem 0; color: #299bbf;}
+h2, h3 { margin: 1rem 0; color: #2f80ed;}
+p, ul, li { font-size: 1.1rem; }
+
+input[type="email"], input[type="password"], input[type="text"], select {
+  width: 100%;
+  padding: 0.7rem;
+  margin: 0.5rem 0 1.5rem 0;
+  border: 2px solid #a3cef1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  background: #f7fafd;
+}
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, select:focus {
+  border-color: #299bbf;
+  outline: none;
+}
+.error { color: #e33429; font-weight: bold;}
+.success { color: #21b573; font-weight: bold;}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fadeIn 1.1s ease; }
+
+@media (max-width: 900px) {
+  .cards { flex-direction: column; align-items: center; }
+  .card { width: 80%; }
+  .container { padding: 1rem; }
+}
