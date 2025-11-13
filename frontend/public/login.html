@@ -6,143 +6,178 @@
 <title>LearnHub - Login</title>
 
 <style>
-/* Reset and basics */
-* { box-sizing: border-box; }
-html,body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; font-family: "Poppins", "Segoe UI", Arial, sans-serif; background: linear-gradient(180deg,#e9f6ff,#f6fbff); }
-
-/* NAVBAR */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 28px;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  position: sticky;
-  top: 0;
-  z-index: 20;
+/* ---------------------------------------------------
+   RESET + GLOBAL
+--------------------------------------------------- */
+* {
+  box-sizing: border-box;
 }
 
-/* Logo left */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #e9f6ff, #f6fbff);
+}
+
+/* ---------------------------------------------------
+   NAVBAR (UNIFORM ACROSS ALL PAGES)
+--------------------------------------------------- */
+.navbar {
+  width: 100%;
+  padding: 14px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #ffffffd8;
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e3e3e3;
+}
+
 .logo {
   font-size: 26px;
   font-weight: 700;
   color: #2f80ed;
-  line-height: 1;
 }
 
-/* Right nav group */
-.nav-links {
+/* RIGHT NAV LINKS */
+.nav-links,
+.navbar nav {
   display: flex;
-  gap: 18px;
   align-items: center;
+  gap: 20px;
 }
 
-/* nav links style */
+.navbar nav a,
 .nav-links a {
   text-decoration: none;
   color: #333;
   font-weight: 600;
-  font-size: 15px;
-  padding: 8px 10px;
-  transition: color .18s, background .18s;
+  font-size: 16px;
+  padding: 8px 12px;
   border-radius: 8px;
+  transition: 0.25s;
 }
 
-/* subtle hover */
-.nav-links a:hover { color: #2f80ed; background: rgba(47,128,237,0.06); }
+.navbar nav a:hover {
+  background: rgba(47, 128, 237, 0.10);
+  color: #2f80ed;
+}
 
-/* register styled as pill */
+/* Register pill */
 .register-btn {
   background: #9fe6f5;
   color: #2f80ed !important;
-  padding: 8px 14px !important;
+  padding: 8px 16px !important;
   border-radius: 10px;
   font-weight: 700;
 }
 
-/* MAIN layout: center area */
+/* ---------------------------------------------------
+   FORM + CARD STYLING
+--------------------------------------------------- */
 .page-wrap {
-  min-height: calc(100vh - 66px); /* account for navbar */
+  min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 28px;
+  padding: 30px;
 }
 
-/* Login card */
+/* Login/Register card */
 .login-card {
   width: 420px;
   max-width: calc(100% - 40px);
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 14px 40px rgba(20,40,80,0.08);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 20px;
+  padding: 34px;
+  box-shadow: 0 14px 40px rgba(20,40,80,0.10);
   text-align: center;
-  animation: pop .35s ease;
+  animation: fadePop .35s ease-out;
 }
 
-/* small animation */
-@keyframes pop {
-  from { transform: translateY(8px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
+/* Card animation */
+@keyframes fadePop {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .login-card h2 {
+  margin: 0 0 22px;
   color: #2f80ed;
-  margin: 0 0 18px;
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: 700;
 }
 
-/* form elements layout: full width centered */
-form#loginForm { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+/* Inputs */
+#loginForm,
+#registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
-/* inputs: full width and centered inside card */
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #d7e4ef;
-  font-size: 15px;
-  outline: none;
-  background: #fff;
-  transition: box-shadow .18s, border-color .18s;
-}
-
-/* focus styling */
-input:focus {
-  border-color: #2f80ed;
-  box-shadow: 0 6px 18px rgba(47,128,237,0.12);
-}
-
-/* login button */
-.button {
-  margin-top: 6px;
-  background: linear-gradient(180deg,#2f80ed,#1b63d6);
-  color: white;
-  border: none;
-  padding: 12px;
+  padding: 14px;
   border-radius: 10px;
   font-size: 16px;
+  border: 1px solid #d7e4ef;
+  outline: none;
+  background: white;
+  transition: 0.25s;
+}
+
+input:focus {
+  border-color: #2f80ed;
+  box-shadow: 0 0 10px rgba(47,128,237,0.15);
+}
+
+/* Buttons */
+.button {
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  color: white;
+  background: linear-gradient(180deg, #2f80ed, #1b63d6);
+  font-size: 17px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform .08s ease, box-shadow .12s ease;
+  transition: 0.25s;
 }
 
-.button:active { transform: translateY(1px); }
-.button:hover { box-shadow: 0 8px 24px rgba(43,118,255,0.12); }
+.button:hover {
+  box-shadow: 0 10px 22px rgba(47,128,237,0.18);
+}
 
-/* message area */
-#errorMsg { color: #d64545; font-size: 14px; min-height: 20px; margin-top: 8px; }
+.button:active {
+  transform: translateY(1px);
+}
 
-/* small screen tweaks */
+/* Error message */
+#errorMsg {
+  color: #d64545;
+  font-size: 14px;
+  min-height: 22px;
+}
+
+/* ---------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------- */
 @media (max-width: 460px) {
-  .login-card { padding: 20px; width: 100%; }
-  .logo { font-size: 22px; }
-  .nav-links a { font-size: 14px; padding: 6px 8px; }
+  .logo { font-size: 28px; }
+  .navbar nav a { font-size: 14px; padding: 6px 8px; }
+  .login-card { padding: 24px; }
 }
+
 </style>
 
 <!-- page script (your existing auth.js will still run) -->
