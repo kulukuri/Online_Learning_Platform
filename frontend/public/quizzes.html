@@ -4,10 +4,121 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LearnHub - Quizzes</title>
-<link rel="stylesheet" href="/css/main.css" />
-<script src="/js/quizzes.js" defer></script>
+<link rel="stylesheet" href="../css/main.css" />
+
+<style>
+/* PAGE BACKGROUND */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #e9f6ff, #f6fbff);
+}
+
+/* ---------------------------------------------------
+   NAVBAR (UNIFORM ACROSS ALL PAGES)
+--------------------------------------------------- */
+.navbar {
+  width: 100%;
+  padding: 14px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #ffffffd8;
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2f80ed;
+}
+
+.navbar nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #333;
+  transition: 0.25s;
+}
+
+.navbar nav a:hover {
+  color: #2f80ed;
+  background: rgba(47,128,237,0.08);
+}
+
+/* Main container */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Title */
+.container h2 {
+  text-align: center;
+  font-size: 30px;
+  color: #2f80ed;
+  margin-bottom: 25px;
+}
+
+/* Quiz list */
+#quizzesList {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Card style for quizzes */
+#quizzesList li {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.07);
+  transition: 0.2s ease;
+}
+
+#quizzesList li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 32px rgba(0,0,0,0.12);
+}
+
+#quizzesList h3 {
+  margin: 0 0 12px;
+  font-size: 22px;
+  color: #2f80ed;
+}
+
+/* questions */
+.quiz-question {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.quiz-options {
+  margin-left: 10px;
+  color: #444;
+  font-size: 15px;
+}
+
+</style>
+
+<script src="../js/quizzes.js" defer></script>
 </head>
+
 <body>
+
 <header class="navbar">
   <div class="logo">LearnHub</div>
   <nav>
@@ -16,9 +127,11 @@
     <a href="login.html">Login</a>
   </nav>
 </header>
+
 <main class="container fade-in">
   <h2>Quizzes</h2>
   <ul id="quizzesList"></ul>
 </main>
+
 </body>
 </html>
