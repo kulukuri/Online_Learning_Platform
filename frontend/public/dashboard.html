@@ -4,9 +4,159 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LearnHub - Dashboard</title>
-<link rel="stylesheet" href="/css/main.css" />
-<script src="/js/dashboard.js" defer></script>
+<link rel="stylesheet" href="../css/main.css" />
+
+<style>
+/* ----------------------------------------------------
+   DASHBOARD UI STYLING (Perfectly aligned + modern)
+---------------------------------------------------- */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #e9f6ff, #f6fbff);
+}
+
+/* ---------------------------------------------------
+   NAVBAR (UNIFORM ACROSS ALL PAGES)
+--------------------------------------------------- */
+.navbar {
+  width: 100%;
+  padding: 14px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #ffffffd8;
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2f80ed;
+}
+
+.navbar nav a {
+  margin-left: 18px;
+  padding: 6px 10px;
+  font-weight: 600;
+  color: #333;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.navbar nav a:hover {
+  color: #2f80ed;
+  background: rgba(47,128,237,0.08);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 35px;
+}
+
+/* Page title */
+.container h2 {
+  text-align: center;
+  color: #2f80ed;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+/* Welcome box */
+#welcomeBox {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.07);
+  font-size: 18px;
+  animation: fadeSlide 0.4s ease-out;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Admin Panel */
+#adminPanel {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.07);
+  margin-top: 20px;
+}
+
+#adminPanel h3 {
+  color: #2f80ed;
+  margin-bottom: 15px;
+}
+
+/* admin buttons */
+#adminPanel .button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* My Courses Section */
+#myCoursesSection {
+  margin-top: 30px;
+}
+
+#myCoursesSection h3 {
+  font-size: 22px;
+  color: #2f80ed;
+  margin-bottom: 12px;
+}
+
+/* My Courses List */
+#myCoursesList {
+  list-style: none;
+  padding-left: 0;
+}
+
+#myCoursesList li {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+  transition: 0.2s;
+}
+
+#myCoursesList li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.viewBtn {
+  margin-top: 10px;
+  display: inline-block;
+  color: #2f80ed;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+</style>
+
+<script src="../js/dashboard.js" defer></script>
 </head>
+
 <body>
 <header class="navbar">
   <div class="logo">LearnHub</div>
@@ -17,26 +167,33 @@
     <a href="login.html" id="logoutBtn">Logout</a>
   </nav>
 </header>
+
 <main class="container fade-in">
+
   <h2>Dashboard</h2>
-  <section id="userWelcome"></section>
-  <hr>
+
+  <!-- Welcome Message -->
+  <section id="userWelcome">
+    <div id="welcomeBox">Loading...</div>
+  </section>
+
+  <hr style="margin: 20px 0;">
+
+  <!-- Admin Panel -->
   <section id="adminPanel" style="display:none;">
     <h3>Admin Panel</h3>
     <button onclick="window.location.href='manage_courses.html'" class="button">Manage Courses</button>
     <button onclick="window.location.href='manage_announcements.html'" class="button">Manage Announcements</button>
     <button onclick="window.location.href='manage_quizzes.html'" class="button">Manage Quizzes</button>
   </section>
+
+  <!-- My Courses -->
   <section id="myCoursesSection">
     <h3>My Courses</h3>
     <ul id="myCoursesList"></ul>
-    <hr>
-    <h3>Announcements</h3>
-    <ul id="dashboardAnnouncements"></ul>
-    <hr>
-    <h3>Quizzes</h3>
-    <ul id="dashboardQuizzes"></ul>
   </section>
+
 </main>
+
 </body>
 </html>
